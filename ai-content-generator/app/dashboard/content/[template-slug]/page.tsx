@@ -8,6 +8,10 @@ import { Button } from "@/components/ui/button";
 import { ArrowLeft } from "lucide-react";
 import Link from "next/link";
 import { chatSession } from "@/utils/AiModel";
+import { db } from "@/utils/db";
+import { AiModel } from "@/utils/schema";
+import { useUser } from "@clerk/nextjs";
+import moment from "moment";
 
 interface PROPS {
   params: {
@@ -21,6 +25,7 @@ const ContentCreation: React.FC<PROPS> = (props) => {
   });
   const [loading , setLoading] = useState(false);
   const[aiOutput,setAiOutput]=useState<string>('');
+  const {user}=useUser()
   const GenratingContent = async(formData: any) => {
     setLoading(true)
     const selectedPrompt = selectedTemplate?.aiPrompt;
@@ -29,7 +34,17 @@ const ContentCreation: React.FC<PROPS> = (props) => {
     console.log(result.response.text());
     setAiOutput(result?.response.text());
     setLoading(false);
+    await saveDb(formData,selectedTemplate?.slug,result?.response.text())
   };
+  const saveDb =async(formData:any,slug:any,aiOutput:string)=>{
+    const result = await db.insert(AiModel).values({
+      formData:formData,
+      templateSlug:slug,
+      aiResponse:aiOutput,
+      createdBy:user?.primaryEmailAddress?.emailAddress,
+      createdAt:moment().format('DD/MM/yyyy')
+    })
+  }
 
   if (!selectedTemplate) {
     console.warn(
