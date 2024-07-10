@@ -5,10 +5,10 @@ import TemplateCard from './TemplateCard';
 export interface TEMPLATE {
   name: string;
   desc: string;
-  icon: string;
   category: string;
-  slug: string;
+  icon: string;    
   aiPrompt: string;
+  slug: string;
   form?: FORM[];
 }
 
@@ -29,7 +29,7 @@ function Template({ userSearchInput }: TemplateProps) {
   useEffect(() => {
     if (userSearchInput) {
       const filterData = Templates.filter(item =>
-        item.name.toLocaleLowerCase().includes(userSearchInput.toLocaleLowerCase())
+        item.name.toLowerCase().includes(userSearchInput.toLowerCase())
       );
       setTemplateList(filterData);
     } else {
@@ -40,7 +40,8 @@ function Template({ userSearchInput }: TemplateProps) {
   return (
     <div className='grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5 p-10'>
       {templateList.map((item: TEMPLATE, index: number) => (
-        <TemplateCard key={index} {...item} />
+        <TemplateCard key={item.slug} {...item} />
+        // Use a unique key, in this case `item.slug` assuming it's unique
       ))}
     </div>
   );
