@@ -8,11 +8,10 @@ function Header() {
         <div className='flex gap-2 items-center p-2 border rounded-md max-w-md  outline-none'>
             <Search/>
             <input type="text" placeholder='Search your content' className='outline-none w-full bg-transparent '/>
+            
         </div>
+        <UserButton />
         
-        <div className='flex gap-5 items-center'>
-            <UserButton />
-        </div>
     </div>
   )
 }
