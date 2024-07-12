@@ -9,8 +9,8 @@ function Header() {
             <Search/>
             <input type="text" placeholder='Search your content' className='outline-none w-full bg-transparent '/>
             
-        </div>
         <UserButton />
+        </div>
         
     </div>
   )
