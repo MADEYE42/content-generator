@@ -23,7 +23,7 @@ const safetySettings = [
   },
 ]
 
-const genAI = new GoogleGenerativeAI('AIzaSyDIRM6QXj5I6TP86EV0hYxRFQ6aGNysN-E');
+const genAI = new GoogleGenerativeAI('AIzaSyALEr0BsKYbl9woQ5Ed0SFXjrWipBIllSk');
 
 const model = genAI.getGenerativeModel({
   model: "gemini-1.5-pro",
